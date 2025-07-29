@@ -1,0 +1,96 @@
+2025-07-19 18:53:08,184 - __main__ - INFO - Using device: cpu
+2025-07-19 18:53:10,639 - huggingface_hub.file_download - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-07-19 19:12:15,846 - huggingface_hub.file_download - WARNING - Error while downloading from https://huggingface.co/facebook/bart-large-cnn/resolve/main/model.safetensors: HTTPSConnectionPool(host='cas-bridge.xethub.hf.co', port=443): Read timed out.
+Trying to resume download...
+2025-07-19 19:21:53,392 - __main__ - INFO - Loaded abstractive summarization model
+2025-07-19 19:21:55,334 - huggingface_hub.file_download - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-07-19 19:31:22,393 - huggingface_hub.file_download - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-07-19 19:31:25,093 - __main__ - INFO - Loaded sentiment analysis model
+2025-07-19 19:49:39,698 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 19:49:39] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 19:50:00,496 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-19 19:50:00,497 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 19:50:00] "POST /summarize HTTP/1.1" 200 -
+2025-07-19 21:58:14,526 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 21:58:14] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 21:58:47,326 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-19 21:58:47,328 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 21:58:47] "POST /summarize HTTP/1.1" 200 -
+2025-07-19 23:12:55,147 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:12:55] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 23:13:18,771 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-19 23:13:18,776 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:13:18] "POST /summarize HTTP/1.1" 200 -
+2025-07-19 23:21:56,312 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:21:56] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 23:21:56,371 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-19 23:21:56,374 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:21:56] "POST /summarize HTTP/1.1" 200 -
+2025-07-19 23:22:21,108 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:22:21] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 23:22:21,125 - __main__ - INFO - Returning cached result
+2025-07-19 23:22:21,130 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:22:21] "POST /summarize HTTP/1.1" 200 -
+2025-07-19 23:22:30,823 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:22:30] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 23:22:30,829 - __main__ - INFO - Returning cached result
+2025-07-19 23:22:30,834 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:22:30] "POST /summarize HTTP/1.1" 200 -
+2025-07-19 23:51:51,104 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:51:51] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-19 23:51:51,139 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-19 23:51:51,143 - werkzeug - INFO - 127.0.0.1 - - [19/Jul/2025 23:51:51] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 00:06:00,838 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:06:00] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 00:06:20,392 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-20 00:06:20,395 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:06:20] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 00:11:26,840 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:11:26] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 00:11:45,977 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-20 00:11:45,979 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:11:45] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 00:21:03,508 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:21:03] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 00:21:21,667 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-20 00:21:21,669 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:21:21] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 00:49:27,165 - __main__ - INFO - Using device: cpu
+2025-07-20 00:49:29,108 - __main__ - INFO - Loaded abstractive summarization model
+2025-07-20 00:49:30,882 - __main__ - INFO - Loaded sentiment analysis model
+2025-07-20 00:49:34,047 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.8:5000
+2025-07-20 00:49:34,048 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-20 00:53:54,255 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:53:54] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 00:54:15,418 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-20 00:54:15,419 - __main__ - ERROR - Sentiment analysis failed: TextClassificationPipeline.__call__() missing 1 required positional argument: 'inputs'
+2025-07-20 00:54:15,420 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 00:54:15] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 00:58:07,411 - __main__ - INFO - Using device: cpu
+2025-07-20 00:58:09,943 - __main__ - INFO - Loaded abstractive summarization model
+2025-07-20 00:58:12,453 - __main__ - INFO - Loaded sentiment analysis model
+2025-07-20 00:58:16,071 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.8:5000
+2025-07-20 00:58:16,072 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-20 01:00:16,045 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 01:00:16] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 01:00:38,094 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 01:00:38] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 01:03:48,844 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 01:03:48] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 01:04:02,243 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 01:04:02] "POST /summarize HTTP/1.1" 200 -
+2025-07-20 01:08:46,294 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 01:08:46] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-20 01:08:55,238 - werkzeug - INFO - 127.0.0.1 - - [20/Jul/2025 01:08:55] "POST /summarize HTTP/1.1" 200 -
+2025-07-21 12:44:59,388 - __main__ - INFO - Using device: cpu
+2025-07-21 12:45:02,278 - __main__ - INFO - Loaded abstractive summarization model
+2025-07-21 12:45:05,139 - __main__ - INFO - Loaded sentiment analysis model
+2025-07-21 12:45:08,860 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.8:5000
+2025-07-21 12:45:08,862 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-23 19:50:12,518 - __main__ - INFO - Using device: cpu
+2025-07-23 19:50:14,938 - __main__ - INFO - Loaded abstractive summarization model
+2025-07-23 19:50:17,424 - __main__ - INFO - Loaded sentiment analysis model
+2025-07-23 19:50:20,561 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.119:5000
+2025-07-23 19:50:20,564 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-23 20:06:06,441 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 20:06:06] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-23 20:06:07,107 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 20:06:07] "POST /summarize HTTP/1.1" 200 -
+2025-07-23 20:23:14,881 - __main__ - INFO - Using device: cpu
+2025-07-23 20:23:16,342 - __main__ - INFO - Loaded abstractive summarization model
+2025-07-23 20:23:17,767 - __main__ - INFO - Loaded sentiment analysis model
+2025-07-23 20:23:20,443 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.119:5000
+2025-07-23 20:23:20,444 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-07-23 20:40:14,113 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 20:40:14] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-23 20:40:14,135 - __main__ - INFO - Text too long (1870 tokens), chunking for summarization.
+2025-07-23 20:41:01,757 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 20:41:01] "POST /summarize HTTP/1.1" 200 -
+2025-07-23 21:09:06,798 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 21:09:06] "OPTIONS /summarize HTTP/1.1" 200 -
+2025-07-23 21:09:06,820 - __main__ - INFO - Text too long (1870 tokens), chunking for summarization.
+2025-07-23 21:09:50,553 - werkzeug - INFO - 127.0.0.1 - - [23/Jul/2025 21:09:50] "POST /summarize HTTP/1.1" 200 -

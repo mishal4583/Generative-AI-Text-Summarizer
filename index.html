@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Summarizer & Sentiment Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: url('./images/bg1.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center; /* Center content vertically */
+            justify-content: center; /* Center content horizontally */
+            padding: 1rem; /* Add some padding around the main container */
+        }
+        
+        /* Overlay for background darkening */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for stronger contrast */
+            z-index: -1;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); /* More subtle background for glass */
+            backdrop-filter: blur(18px); /* Stronger blur for more prominent glass effect */
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 1.5rem; /* Slightly larger border-radius */
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Lighter, more subtle border */
+            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5); /* Darker, more diffused shadow */
+        }
+        
+        .glass-btn {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(60, 60, 60, 0.9)); /* Dark grey gradient */
+            backdrop-filter: blur(10px); /* Stronger blur for buttons */
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform;
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Lighter button border */
+        }
+        
+        .glass-btn:hover {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95), rgba(70, 70, 70, 0.95)); /* Slightly brighter hover */
+            transform: translateY(-4px) scale(1.02); /* More pronounced lift and scale */
+            box-shadow: 0 18px 45px 0 rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.4);
+            border-left-color: white; /* White spinner */
+            border-radius: 50%;
+            width: 28px; /* Slightly larger spinner */
+            height: 28px;
+            animation: spin 0.8s linear infinite; /* Faster spin */
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .message-box {
+            padding: 1rem;
+            border-radius: 0.75rem; /* Larger border-radius for messages */
+            margin-top: 1.5rem; /* More space */
+            font-weight: 500;
+            backdrop-filter: blur(15px); /* Stronger blur */
+            -webkit-backdrop-filter: blur(15px);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* Subtle text shadow for readability */
+        }
+        
+        .message-box.error {
+            background: rgba(255, 99, 71, 0.15); /* Tomato red for error background (subtle) */
+            color: #FF6347; /* Tomato red text */
+            border: 1px solid rgba(255, 99, 71, 0.4);
+        }
+        
+        .message-box.info {
+            background: rgba(100, 100, 100, 0.15); /* Mid-grey for info background */
+            color: #E0E0E0; /* Light grey text */
+            border: 1px solid rgba(100, 100, 100, 0.4);
+        }
+        
+        .sentiment-positive {
+            color: #A3A3A3; /* Light grey for positive */
+            font-weight: 600;
+        }
+        
+        .sentiment-negative {
+            color: #FF6347; /* Tomato red for negative */
+            font-weight: 600;
+        }
+        
+        .sentiment-neutral {
+            color: #737373; /* Darker grey for neutral */
+            font-weight: 600;
+        }
+        
+        textarea {
+            background: rgba(255, 255, 255, 0.05); /* Very subtle input background */
+            color: white; /* Ensure typed text is white */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
+            transition: all 0.3s ease;
+        }
+        
+        /* --- START CHANGE FOR PLACEHOLDER COLOR --- */
+        textarea::placeholder {
+            color: white; /* Explicitly pure white placeholder */
+            opacity: 0.7; /* Keep some transparency for a "placeholder" look */
+        }
+        /* --- END CHANGE FOR PLACEHOLDER COLOR --- */
+        
+        textarea:focus {
+            background: rgba(231, 224, 224, 0.1);
+            border-color: #888; /* Mid-grey for focus ring */
+            box-shadow: 0 0 0 3px rgba(136, 136, 136, 0.5); /* Custom focus ring */
+        }
+        
+        .output-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem; /* Consistent border-radius */
+            box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.4);
+            color: white; /* Ensure all text inside is white by default */
+        }
+
+        .output-text-content {
+            background: rgba(0, 0, 0, 0.25); /* Darker background for text content areas */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #E0E0E0; /* Light grey for content text */
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1); /* Lighter copy button background */
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-weight: 500;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2.5rem; /* Adjusted for smaller screens */
+            }
+            .glass-card, .output-section {
+                border-radius: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 flex flex-col items-center justify-center">
+    <div class="container mx-auto max-w-4xl w-full">
+        <div class="glass-card p-8 md:p-10">
+            <div class="text-center mb-8">
+                <h1 class="font-['Montserrat'] text-4xl md:text-5xl font-extrabold text-white mb-3 tracking-wide drop-shadow-lg">
+                    AI Text Summarizer
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl opacity-90 drop-shadow-md">
+                    Summarize articles & detect sentiment in an instant.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <label for="inputText" class="block text-gray-200 text-lg font-semibold mb-2">
+                    Enter your text:
+                </label>
+                <textarea id="inputText"
+                          class="w-full p-4 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200 resize-y min-h-[180px] text-lg"
+                          placeholder="Paste your lengthy article or document here for AI-powered insights..."></textarea>
+            </div>
+
+            <button id="summarizeButton"
+                    class="w-full glass-btn text-white font-bold py-3 md:py-4 px-6 rounded-lg shadow-lg flex items-center justify-center space-x-3 text-lg md:text-xl transform hover:-translate-y-1 hover:scale-102 transition duration-300 ease-in-out">
+                <span id="buttonText">SUMMARIZE & ANALYZE</span>
+                <div id="loadingSpinner" class="loading-spinner hidden"></div>
+            </button>
+
+            <div id="messageContainer" class="mt-4"></div>
+
+            <div id="outputSection" class="mt-8 p-6 md:p-8 output-section border border-gray-700 rounded-lg hidden">
+                <h2 class="text-2xl font-semibold text-white mb-4 flex items-center justify-between font-['Montserrat']">
+                    Summary:
+                    <span id="summarySentiment" class="text-base font-normal"></span>
+                </h2>
+                <div id="summaryOutput" class="text-gray-300 leading-relaxed text-lg whitespace-pre-wrap output-text-content p-3 rounded-md mb-4"></div>
+                <div class="flex justify-end mb-6">
+                    <button id="copySummaryButton"
+                            class="copy-btn font-semibold py-2 px-4 rounded-lg text-sm md:text-base">
+                        Copy Summary
+                    </button>
+                </div>
+
+                <h2 class="text-2xl font-semibold text-white mt-6 mb-4 flex items-center justify-between font-['Montserrat']">
+                    Original Text:
+                    <span id="originalTextSentiment" class="text-base font-normal"></span>
+                </h2>
+                <div id="originalTextOutput" class="text-gray-400 leading-normal text-sm md:text-base whitespace-pre-wrap max-h-60 overflow-y-auto output-text-content p-3 rounded-md"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputText = document.getElementById('inputText');
+            const summarizeButton = document.getElementById('summarizeButton');
+            const buttonText = document.getElementById('buttonText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const outputSection = document.getElementById('outputSection');
+            const summaryOutput = document.getElementById('summaryOutput');
+            const originalTextOutput = document.getElementById('originalTextOutput');
+            const messageContainer = document.getElementById('messageContainer');
+            const summarySentiment = document.getElementById('summarySentiment');
+            const originalTextSentiment = document.getElementById('originalTextSentiment');
+            const copySummaryButton = document.getElementById('copySummaryButton');
+
+            function showMessage(type, text) {
+                messageContainer.innerHTML = '';
+                const messageBox = document.createElement('div');
+                messageBox.className = `message-box ${type}`;
+                messageBox.textContent = text;
+                messageContainer.appendChild(messageBox);
+            }
+
+            function getSentimentClass(label) {
+                // Adjust sentiment colors for the new black/white/grey theme
+                if (label === 'POSITIVE') return 'sentiment-positive'; // Light grey
+                if (label === 'NEGATIVE') return 'sentiment-negative'; // A subtle red for negative
+                if (label === 'NEUTRAL') return 'sentiment-neutral'; // Darker grey
+                return 'text-gray-400'; // Default for N/A or ERROR
+            }
+
+            function formatSentiment(sentimentData) {
+                if (sentimentData && sentimentData.label && sentimentData.score !== undefined) {
+                    let label = sentimentData.label.toUpperCase();
+                    if (label === 'N/A' || label === 'ERROR') return `<span class="text-gray-400">${label}</span>`;
+
+                    let score = (sentimentData.score * 100).toFixed(2);
+                    let className = getSentimentClass(label);
+                    return `<span class="${className}">${label}</span> (${score}%)`;
+                }
+                return '<span class="text-gray-400">N/A</span>';
+            }
+
+            summarizeButton.addEventListener('click', async () => {
+                const textToSummarize = inputText.value.trim();
+
+                if (!textToSummarize) {
+                    showMessage('error', 'Please enter some text to summarize.');
+                    outputSection.classList.add('hidden');
+                    return;
+                }
+
+                buttonText.textContent = 'ANALYZING...';
+                loadingSpinner.classList.remove('hidden');
+                summarizeButton.disabled = true;
+                outputSection.classList.add('hidden');
+                messageContainer.innerHTML = '';
+                summarySentiment.innerHTML = '';
+                originalTextSentiment.innerHTML = '';
+
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/summarize', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: textToSummarize }),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        summaryOutput.textContent = result.summary;
+                        originalTextOutput.textContent = result.original_text;
+
+                        // Corrected to use original_sentiment and summary_sentiment
+                        summarySentiment.innerHTML = `Sentiment: ${formatSentiment(result.summary_sentiment)}`;
+                        originalTextSentiment.innerHTML = `Sentiment: ${formatSentiment(result.original_sentiment)}`;
+
+
+                        outputSection.classList.remove('hidden');
+                        showMessage('info', 'Text summarized and analyzed successfully!');
+                    } else {
+                        showMessage('error', result.error || 'An unknown error occurred.');
+                        outputSection.classList.add('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('error', 'Could not connect to the summarization service. Please ensure the Python backend is running.');
+                    outputSection.classList.add('hidden');
+                } finally {
+                    buttonText.textContent = 'SUMMARIZE & ANALYZE';
+                    loadingSpinner.classList.add('hidden');
+                    summarizeButton.disabled = false;
+                }
+            });
+
+            copySummaryButton.addEventListener('click', () => {
+                const summaryText = summaryOutput.textContent;
+                if (!summaryText) {
+                    showMessage('info', 'No summary to copy!');
+                    return;
+                }
+                const textarea = document.createElement('textarea');
+                textarea.value = summaryText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showMessage('info', 'Summary copied to clipboard!');
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                    showMessage('error', 'Failed to copy summary. Please copy manually.');
+                }
+                document.body.removeChild(textarea);
+            });
+        });
+    </script>
+</body>
+</html>
